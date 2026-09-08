@@ -1,0 +1,120 @@
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refind — Reunite lost things with owners</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="main.css">
+
+
+</head>
+
+<body>
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo-area">
+                <span class="logo-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+                <span class="logo-text">Refind</span>
+            </div>
+            <nav class="nav-links">
+                <a href="Home.html">Home</a>
+                <a href="Browseitems.html" class="active">Browse items</a>
+                <a href="my Report.html">My Report</a>
+                <a href="Report a find.html">Report a found</a>
+
+                <a href="Messages.html">Messages</a>
+                <a href="How it works.html">How it works</a>
+                <a href="About.html">About</a>
+            </nav>
+            <div class="auth-buttons">
+                <a href="Log in.html" class="login-btn">Log in</a>
+                <a href="sign up.html" class="signup-btn">Sign up</a>
+                <a href="#" class="logout-btn">Log out</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <!-- <p class="small-title">FIND WHAT YOU LOST</p> -->
+            <div class="badge" style="background-color: #e0f2fe; color: #0369a1;">Find What You Lost</div>
+            <h1>Browse Items</h1>
+            <p class="subtitle">Find lost items by their descriptions and characteristics.</p>
+        </section>
+
+        <section class="search-area">
+            <input id="searchInput" type="text" placeholder="Search by item name, color, location...">
+            <select id="categoryFilter">
+                <option value="all">All Categories</option>
+                <option value="Accessories">Accessories</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Bags">Bags & Wallets</option>
+                <option value="Keys">Keys & IDs</option>
+            </select>
+            <button onclick="searchItems()">Search</button>
+        </section>
+
+        <section class="request-box">
+            <h2>Recent Requests</h2>
+            <p>People are looking for items with these characteristics.</p>
+        </section>
+
+        <section id="itemsContainer" class="items-grid"></section>
+        <p id="noItems" class="no-items">No items found. Try another search.</p>
+    </main>
+
+
+
+
+
+
+
+
+
+
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <div class="logo-area">
+                    <span class="logo-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+                    <span class="logo-text">Refind</span>
+                </div>
+                <p class="footer-logo-desc">A calm, safe way to reunite people with the things they lose.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Platform</h4>
+                <ul>
+                    <li><a href="Browseitems.html">Browse found items</a></li>
+                    <li><a href="Report a find.html">Report a found item</a></li>
+                    <li><a href="my Report.html">My Report</a></li>
+            </div>
+            <div class="footer-col">
+                <h4>Learn</h4>
+                <ul>
+                    <li><a href="How it works.html">How it works</a></li>
+                    <li><a href="About.html">About Refind</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Account</h4>
+                <ul>
+                    <li><a href="Log in.html">Log in</a></li>
+                    <li><a href="sign up.html">Create account</a></li>
+                    <li><a href="Messages.html">Messages</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    <div class="footer-bottom">
+        <p>Made with care to bring lost things back home. © 2026 Refind</p>
+    </div>
+    <script src="index.js"></script>
+
+
+
+</body>
+
+</html>
