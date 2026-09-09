@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
@@ -6,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Refind — Reunite lost things with owners</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="assets/css/main.css">
 
 
 </head>
@@ -29,11 +32,14 @@
                 <a href="How it works.php">How it works</a>
                 <a href="About.php">About</a>
             </nav>
-            <div class="auth-buttons">
-                <a href="Log in.php" class="login-btn">Log in</a>
-                <a href="sign up.php" class="signup-btn">Sign up</a>
-                <a href="logout.php" class="logout-btn">Log out</a>
-            </div>
+          <div class="auth-buttons">
+    <?php if (empty($_SESSION['user_id'])): ?>
+        <a href="auth/Log-in.php" class="login-btn">Log in</a>
+        <a href="auth/sign-up.php" class="signup-btn">Sign up</a>
+    <?php else: ?>
+        <a href="auth/profie.php" class="profile-btn">profile</a>
+    <?php endif; ?>
+</div>
         </div>
     </header>
 
@@ -61,7 +67,7 @@
 
 
             <div class="hero-image-container">
-                <img src="99634f65-75c1-497d-916e-0658bff9b46b.png">
+                <img src="assets/images/99634f65-75c1-497d-916e-0658bff9b46b.png">
             </div>
         </section>
 

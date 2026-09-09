@@ -17,18 +17,18 @@
         <span class="logo-text">Refind</span>
       </div>
       <nav class="nav-links">
-        <a href="Home.html">Home</a>
-        <a href="Browseitems.html" class="active">Browse items</a>
-        <a href="my Report.html">My Report</a>
-        <a href="Report a find.html">Report a found</a>
-        <a href="Messages.html">Messages</a>
-        <a href="How it works.html">How it works</a>
-        <a href="About.html">About</a>
+        <a href="Home.php">Home</a>
+        <a href="Browseitems.php" class="active">Browse items</a>
+        <a href="my Report.php">My Report</a>
+        <a href="Report a find.php">Report a found</a>
+        <a href="Messages.php">Messages</a>
+        <a href="How it works.php">How it works</a>
+        <a href="About.php">About</a>
       </nav>
       <div class="auth-buttons">
-        <a href="Log in.html" class="login-btn">Log in</a>
-        <a href="sign up.html" class="signup-btn">Sign up</a>
-        <a href="#" class="logout-btn">Log out</a>
+        <a href="Log in.php" class="login-btn">Log in</a>
+        <a href="sign up.php" class="signup-btn">Sign up</a>
+        <a href="logout.php" class="logout-btn">Log out</a>
       </div>
     </div>
   </header>
@@ -72,24 +72,24 @@
       <div class="footer-col">
         <h4>Platform</h4>
         <ul>
-          <li><a href="Browseitems.html">Browse found items</a></li>
-          <li><a href="Report a find.html">Report a found item</a></li>
-          <li><a href="my Report.html">My Report</a></li>
+          <li><a href="Browseitems.php">Browse found items</a></li>
+          <li><a href="Report a find.php">Report a found item</a></li>
+          <li><a href="my Report.php">My Report</a></li>
 
       </div>
       <div class="footer-col">
         <h4>Learn</h4>
         <ul>
-          <li><a href="How it works.html">How it works</a></li>
-          <li><a href="About.html">About Refind</a></li>
+          <li><a href="How it works.php">How it works</a></li>
+          <li><a href="About.php">About Refind</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Account</h4>
         <ul>
-          <li><a href="Log in.html">Log in</a></li>
-          <li><a href="sign up.html">Create account</a></li>
-          <li><a href="Messages.html">Messages</a></li>
+          <li><a href="Log in.php">Log in</a></li>
+          <li><a href="sign up.php">Create account</a></li>
+          <li><a href="Messages.php">Messages</a></li>
         </ul>
       </div>
     </div>
