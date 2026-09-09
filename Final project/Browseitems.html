@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
 
@@ -10,6 +11,7 @@
 
 
 </head>
+
 
 <body>
     <header class="navbar">
@@ -35,45 +37,83 @@
             </div>
         </div>
     </header>
-
     <main>
         <section class="hero">
-            <!-- <p class="small-title">FIND WHAT YOU LOST</p> -->
-            <div class="badge" style="background-color: #e0f2fe; color: #0369a1;">Find What You Lost</div>
-            <h1>Browse Items</h1>
-            <p class="subtitle">Find lost items by their descriptions and characteristics.</p>
+            <div class="badge">Find What You Lost</div>
+            <h1>Browse Found Items</h1>
+            <p class="subtitle">Filter through structured item characteristics to find your missing belongings.</p>
         </section>
 
+        <!-- Structured Filtering Form -->
         <section class="search-area">
-            <input id="searchInput" type="text" placeholder="Search by item name, color, location...">
-            <select id="categoryFilter">
-                <option value="all">All Categories</option>
-                <option value="Accessories">Accessories</option>
-                <option value="Electronics">Electronics</option>
-                <option value="Bags">Bags & Wallets</option>
-                <option value="Keys">Keys & IDs</option>
-            </select>
-            <button onclick="searchItems()">Search</button>
+            <div class="filter-grid">
+                <div class="filter-group">
+                    <label for="categoryFilter">Category</label>
+                    <select id="categoryFilter">
+                        <option value="all">All Categories</option>
+                        <option value="Accessories">Accessories</option>
+                        <option value="Electronics">Electronics</option>
+                        <option value="Bags">Bags & Wallets</option>
+                        <option value="Keys">Keys & IDs</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="typeFilter">Item Type</label>
+                    <select id="typeFilter">
+                        <option value="all">All Types</option>
+                        <option value="Smartphone">Smartphone</option>
+                        <option value="Laptop">Laptop</option>
+                        <option value="Backpack">Backpack</option>
+                        <option value="Car Keys">Car Keys</option>
+                        <option value="Wallet">Wallet</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="colorFilter">Color</label>
+                    <select id="colorFilter">
+                        <option value="all">All Colors</option>
+                        <option value="Black">Black</option>
+                        <option value="Silver">Silver</option>
+                        <option value="Blue">Blue</option>
+                        <option value="Brown">Brown</option>
+                        <option value="Red">Red</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="locationFilter">Location</label>
+                    <select id="locationFilter">
+                        <option value="all">All Locations</option>
+                        <option value="Downtown">Downtown</option>
+                        <option value="Central Library">Central Library</option>
+                        <option value="University Campus">University Campus</option>
+                        <option value="City Park">City Park</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="dateFilter">Date (Approximate)</label>
+                    <input id="dateFilter" type="date">
+                </div>
+            </div>
+
+            <div class="filter-actions">
+                <button onclick="searchItems()" class="search-btn"><i class="fa-solid fa-filter"></i> Apply
+                    Filters</button>
+                <button onclick="resetFilters()" class="reset-btn">Reset</button>
+            </div>
         </section>
 
         <section class="request-box">
-            <h2>Recent Requests</h2>
-            <p>People are looking for items with these characteristics.</p>
+            <h2>Matching Results</h2>
+            <p>Review potential matches and click "I Think It's Mine" to connect with the finder.</p>
         </section>
 
         <section id="itemsContainer" class="items-grid"></section>
-        <p id="noItems" class="no-items">No items found. Try another search.</p>
+        <p id="noItems" class="no-items">No items found matching these options. Try adjusting your filters.</p>
     </main>
-
-
-
-
-
-
-
-
-
-
 
     <footer class="footer">
         <div class="footer-container">
@@ -90,6 +130,7 @@
                     <li><a href="Browseitems.html">Browse found items</a></li>
                     <li><a href="Report a find.html">Report a found item</a></li>
                     <li><a href="my Report.html">My Report</a></li>
+                </ul>
             </div>
             <div class="footer-col">
                 <h4>Learn</h4>
@@ -112,9 +153,6 @@
         <p>Made with care to bring lost things back home. © 2026 Refind</p>
     </div>
     <script src="index.js"></script>
-
-
-
 </body>
 
 </html>

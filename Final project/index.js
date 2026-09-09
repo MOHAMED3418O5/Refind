@@ -122,3 +122,79 @@ function loginUser(event) {
 }
 
 displayItems(items);
+// browseitems
+ const foundItems = [
+            {id: 1, category: "Electronics", type: "Smartphone", color: "Black", location: "Downtown", date: "2026-09-08", description: "Found near the main square."},
+            {id: 2, category: "Bags", type: "Backpack", color: "Blue", location: "University Campus", date: "2026-09-07", description: "Blue waterproof backpack."},
+            {id: 3, category: "Keys", type: "Car Keys", color: "Silver", location: "City Park", date: "2026-09-06", description: "Toyota key with a red strap."},
+            {id: 4, category: "Accessories", type: "Wallet", color: "Brown", location: "Central Library", date: "2026-09-05", description: "Leather wallet, empty."}
+        ];
+
+        function displayItems(items) {
+            const container = document.getElementById("itemsContainer");
+            const noItemsMsg = document.getElementById("noItems");
+
+            container.innerHTML = "";
+
+            if (items.length === 0) {
+                noItemsMsg.style.display = "block";
+                return;
+            }
+
+            noItemsMsg.style.display = "none";
+
+            items.forEach(item => {
+                const card = document.createElement("div");
+                card.className = "item-card";
+                card.innerHTML = `
+                    <div class="item-card-body">
+                        <span class="item-tag">${item.category}</span>
+                        <h3 class="item-title">${item.type} (${item.color})</h3>
+                        <div class="item-details">
+                            <span><i class="fa-solid fa-location-dot"></i> ${item.location}</span>
+                            <span><i class="fa-regular fa-calendar"></i> ${item.date}</span>
+                            <p>${item.description}</p>
+                        </div>
+                        <button class="match-btn" onclick="claimItem(${item.id})">I Think It's Mine</button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function searchItems() {
+            const category = document.getElementById("categoryFilter").value;
+            const type = document.getElementById("typeFilter").value;
+            const color = document.getElementById("colorFilter").value;
+            const location = document.getElementById("locationFilter").value;
+            const date = document.getElementById("dateFilter").value;
+
+            const filtered = foundItems.filter(item => {
+                const matchCategory = (category === "all" || item.category === category);
+                const matchType = (type === "all" || item.type === type);
+                const matchColor = (color === "all" || item.color === color);
+                const matchLocation = (location === "all" || item.location === location);
+                const matchDate = (!date || item.date === date);
+
+                return matchCategory && matchType && matchColor && matchLocation && matchDate;
+            });
+
+            displayItems(filtered);
+        }
+
+        function resetFilters() {
+            document.getElementById("categoryFilter").value = "all";
+            document.getElementById("typeFilter").value = "all";
+            document.getElementById("colorFilter").value = "all";
+            document.getElementById("locationFilter").value = "all";
+            document.getElementById("dateFilter").value = "";
+            displayItems(foundItems);
+        }
+
+        function claimItem(id) {
+            alert(`You selected item ID: ${id}. Proceeding to verification & messaging stage.`);
+        }
+
+        window.onload = () => {
+            displayItems(foundItems);
+        };
