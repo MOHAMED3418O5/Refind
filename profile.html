@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الملف الشخصي - Profile</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f2faf6;
+            color: #1f2937;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .profile-container {
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 480px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+            text-align: center;
+            border: 1px solid #e5e7eb;
+        }
+
+        .profile-header {
+            margin-bottom: 25px;
+        }
+
+        .avatar-wrapper {
+            position: relative;
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 15px auto;
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #0f766e;
+            background-color: #e6f4ea;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #0f766e;
+            font-size: 36px;
+        }
+
+        .profile-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 5px;
+        }
+
+        .profile-email {
+            font-size: 0.9rem;
+            color: #6b7280;
+        }
+
+        .info-box {
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 25px;
+            text-align: right;
+        }
+
+        .info-row {
+            padding: 14px 18px;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-size: 0.8rem;
+            color: #6b7280;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .info-value {
+            font-size: 1rem;
+            color: #1f2937;
+            font-weight: 500;
+        }
+
+        .actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn-primary {
+            background-color: #0f766e;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #115e59;
+        }
+
+        .btn-logout {
+            background-color: transparent;
+            color: #0f766e;
+            border: 1px solid #0f766e;
+        }
+
+        .btn-logout:hover {
+            background-color: #f0fdf4;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="profile-container">
+        <div class="profile-header">
+            <div class="avatar-wrapper">
+                <div class="avatar" id="userAvatarIcon">👤</div>
+            </div>
+            <h1 class="profile-name" id="headerName">Fatma Salama</h1>
+            <p class="profile-email" id="headerEmail">fatma@email.com</p>
+        </div>
+
+        <div class="info-box">
+            <div class="info-row">
+                <span class="info-label">Full Name</span>
+                <span class="info-value" id="fullNameValue">Fatma Salama</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Email</span>
+                <span class="info-value" id="emailValue">fatma@email.com</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Phone Number</span>
+                <span class="info-value" id="phoneValue">01XXXXXXXXX</span>
+            </div>
+        </div>
+
+        <div class="actions">
+            <button class="btn btn-primary" id="editProfileBtn">Edit Profile</button>
+            <button class="btn btn-logout" id="logoutBtn">Logout</button>
+        </div>
+    </div>
+
+    <script>
+        // Fetch user profile data from the back-end API dynamically
+        async function loadUserProfile() {
+            try {
+                // Mock data for demonstration purposes:
+                const userData = {
+                    name: "Fatma Salama",
+                    email: "fatma@email.com",
+                    phone: "01012345678",
+                    avatarUrl: ""
+                };
+
+                // Update DOM elements with received data
+                document.getElementById('headerName').textContent = userData.name;
+                document.getElementById('headerEmail').textContent = userData.email;
+                document.getElementById('fullNameValue').textContent = userData.name;
+                document.getElementById('emailValue').textContent = userData.email;
+                document.getElementById('phoneValue').textContent = userData.phone;
+
+                if (userData.avatarUrl) {
+                    const avatarWrapper = document.querySelector('.avatar-wrapper');
+                    avatarWrapper.innerHTML = `<img src="${userData.avatarUrl}" class="avatar" alt="Profile Picture">`;
+                }
+
+            } catch (error) {
+                console.error("Failed to load user profile data:", error);
+            }
+        }
+
+        // Event listener for edit profile button
+        document.getElementById('editProfileBtn').addEventListener('click', () => {
+            alert("Redirecting to the edit profile page...");
+        });
+
+        // Event listener for logout button
+        document.getElementById('logoutBtn').addEventListener('click', async () => {
+            try {
+                alert("Logged out successfully");
+                window.location.href = '/login';
+            } catch (error) {
+                console.error("An error occurred during logout:", error);
+            }
+        });
+
+        // Load profile data when the DOM is fully loaded
+        window.addEventListener('DOMContentLoaded', loadUserProfile);
+    </script>
+</body>
+
+</html>
