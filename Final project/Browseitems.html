@@ -44,12 +44,12 @@
             <p class="subtitle">Filter through structured item characteristics to find your missing belongings.</p>
         </section>
 
-        <!-- Structured Filtering Form -->
+
         <section class="search-area">
             <div class="filter-grid">
                 <div class="filter-group">
                     <label for="categoryFilter">Category</label>
-                    <select id="categoryFilter">
+                    <select id="categoryFilter" name="category">
                         <option value="all">All Categories</option>
                         <option value="Accessories">Accessories</option>
                         <option value="Electronics">Electronics</option>
@@ -60,7 +60,7 @@
 
                 <div class="filter-group">
                     <label for="typeFilter">Item Type</label>
-                    <select id="typeFilter">
+                    <select id="typeFilter" name="item_type">
                         <option value="all">All Types</option>
                         <option value="Smartphone">Smartphone</option>
                         <option value="Laptop">Laptop</option>
@@ -72,7 +72,7 @@
 
                 <div class="filter-group">
                     <label for="colorFilter">Color</label>
-                    <select id="colorFilter">
+                    <select id="colorFilter" name="color">
                         <option value="all">All Colors</option>
                         <option value="Black">Black</option>
                         <option value="Silver">Silver</option>
@@ -84,7 +84,7 @@
 
                 <div class="filter-group">
                     <label for="locationFilter">Location</label>
-                    <select id="locationFilter">
+                    <select id="locationFilter" name="location">
                         <option value="all">All Locations</option>
                         <option value="Downtown">Downtown</option>
                         <option value="Central Library">Central Library</option>
@@ -95,7 +95,7 @@
 
                 <div class="filter-group">
                     <label for="dateFilter">Date (Approximate)</label>
-                    <input id="dateFilter" type="date">
+                    <input id="dateFilter" name="date" type="date">
                 </div>
             </div>
 
