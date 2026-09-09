@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report a found item — Refind</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo-area">
+                <span class="logo-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+                <span class="logo-text">Refind</span>
+            </div>
+            <nav class="nav-links">
+                <a href="Home.php">Home</a>
+                <a href="Browseitems.php">Browse items</a>
+                <a href="my Report.php">My Report</a>
+                <a href="Report a find.php" class="active">Report a found</a>
+                <a href="Messages.php">Messages</a>
+                <a href="How it works.php">How it works</a>
+                <a href="About.php">About</a>
+            </nav>
+            <div class="auth-buttons">
+                <a href="Log in.php" class="login-btn">Log in</a>
+                <a href="sign up.php" class="signup-btn">Sign up</a>
+                <a href="#" class="logout-btn">Log out</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-container">
+
+        <div class="page-header">
+            <div class="badge" style="background-color: #e0f2fe; color: #0369a1;">For finders</div>
+            <h1>Report a found item</h1>
+            <p>Describe the item publicly, then record one private detail only the owner would know.</p>
+        </div>
+
+        <div class="content-grid">
+
+            <form class="report-form">
+
+                <div class="form-group">
+                    <label for="item-name">What did you find?</label>
+                    <input type="text" id="item-name" name="item-name" placeholder="e.g. Black canvas backpack">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label for="category">Category</label>
+                        <select id="category" name="category">
+                            <option value="all">All Categories</option>
+                            <option value="Accessories">Accessories</option>
+                            <option value="Electronics">Electronics</option>
+                            <option value="Bags">Bags & Wallets</option>
+                            <option value="Keys">Keys & IDs</option>
+                            <option value="Wallet">Wallet</option>
+                            <option value="Documents">Documents & IDs</option>
+                            <option value="Clothing">Clothing</option>
+                            <option value="Books">Books & Notes</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group half">
+                        <label for="date-found">Date found</label>
+                        <input type="date" id="date-found" name="dateFound">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="location">Where did you find it?</label>
+                    <input type="text" id="location" name="location" placeholder="e.g. Central Library, 2nd floor">
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Public description</label>
+                    <textarea id="description" rows="4" name="description"
+                        placeholder="Describe the item without giving away identifying details."></textarea>
+                </div>
+
+                <div class="hidden-detail-box">
+                    <div class="hidden-title">
+                        <i class="fa-solid fa-lock"></i>
+                        <span>Hidden detail (never shown publicly)</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ver-question">Verification question</label>
+                        <input type="text" id="ver-question" name="ver-question"
+                            placeholder="e.g. What is inside the front pocket?">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="correct-answer">Correct answer</label>
+                        <input type="text" id="correct-answer" name="correct-answer"
+                            placeholder="e.g. A set of keys with a red tag">
+                    </div>
+                </div>
+
+                <div class="Refindlink">
+                    <a href="success.php" class="btn-primary">Publish found items</a>
+                </div>
+            </form>
+
+            <div class="tips-sidebar">
+                <div class="tips-card">
+                    <h3>Tips for a good report</h3>
+                    <ul>
+                        <li>Keep the public description general – colour, type, where you found it.</li>
+                        <li>Save the most identifying feature for the hidden question.</li>
+                        <li>Hand fragile or valuable items to a nearby desk or office if you can.</li>
+                        <li>Meet in a public place when returning the item.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <div class="logo-area">
+                    <span class="logo-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+                    <span class="logo-text">Refind</span>
+                </div>
+                <p class="footer-logo-desc">A calm, safe way to reunite people with the things they lose.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Platform</h4>
+                <ul>
+                    <li><a href="Browseitems.php">Browse found items</a></li>
+                    <li><a href="Report a find.php">Report a found item</a></li>
+                    <li><a href="my Report.php">My Report</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Learn</h4>
+                <ul>
+                    <li><a href="How it works.php">How it works</a></li>
+                    <li><a href="About.php">About Refind</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Account</h4>
+                <ul>
+                    <li><a href="Log in.php">Log in</a></li>
+                    <li><a href="sign up.php">Create account</a></li>
+                    <li><a href="Messages.php">Messages</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    <div class="footer-bottom">
+        <p>Made with care to bring lost things back home. © 2026 Refind</p>
+    </div>
+</body>
+
+</html>
