@@ -26,10 +26,10 @@
         .profile-container {
             background-color: #ffffff;
             width: 100%;
-            max-width: 480px;
+            max-width: 520px;
             border-radius: 16px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-            padding: 30px;
+            padding: 35px;
             text-align: center;
             border: 1px solid #e5e7eb;
         }
@@ -71,20 +71,21 @@
             color: #6b7280;
         }
 
-        .info-box {
+        .info-form {
             border: 1px solid #e5e7eb;
             border-radius: 12px;
             overflow: hidden;
             margin-bottom: 25px;
             text-align: right;
+            background-color: #fff;
         }
 
         .info-row {
-            padding: 14px 18px;
+            padding: 16px 20px;
             border-bottom: 1px solid #e5e7eb;
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 6px;
         }
 
         .info-row:last-child {
@@ -92,16 +93,45 @@
         }
 
         .info-label {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: #6b7280;
             font-weight: 600;
             text-transform: uppercase;
         }
 
-        .info-value {
-            font-size: 1rem;
+        .info-input {
+            font-size: 1.05rem;
             color: #1f2937;
             font-weight: 500;
+            border: 1px solid transparent;
+            background: transparent;
+            padding: 6px 0;
+            width: 100%;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .info-input:focus {
+            border-bottom: 1px solid #0f766e;
+        }
+
+        .info-input.invalid {
+            border-bottom: 1px solid #ef4444 !important;
+        }
+
+        .info-input.valid {
+            border-bottom: 1px solid #0f766e !important;
+        }
+
+        .error-message {
+            font-size: 0.75rem;
+            color: #ef4444;
+            display: none;
+            margin-top: 2px;
+        }
+
+        .info-row.error .error-message {
+            display: block;
         }
 
         .actions {
@@ -143,6 +173,14 @@
         .btn-logout:hover {
             background-color: #f0fdf4;
         }
+
+        /* .footer-bottom {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            margin: 20px 0;
+        } */
     </style>
 </head>
 
@@ -157,73 +195,133 @@
             <p class="profile-email" id="headerEmail">fatma@email.com</p>
         </div>
 
-        <div class="info-box">
-            <div class="info-row">
-                <span class="info-label">Full Name</span>
-                <span class="info-value" id="fullNameValue">Fatma Salama</span>
-            </div>
-            <div class="info-row">
-                <span class="info-label">Email</span>
-                <span class="info-value" id="emailValue">fatma@email.com</span>
-            </div>
-            <div class="info-row">
-                <span class="info-label">Phone Number</span>
-                <span class="info-value" id="phoneValue">01XXXXXXXXX</span>
-            </div>
-        </div>
 
-        <div class="actions">
-            <button class="btn btn-primary" id="editProfileBtn">Edit Profile</button>
-            <button class="btn btn-logout" id="logoutBtn">Logout</button>
+        <form id="profileForm" class="info-form" action="/update-profile" method="POST">
+            <div class="info-row" id="rowText">
+                <label class="info-label" for="text">Full Name</label>
+                <input type="text" id="text" name="full_name" class="info-input" value="Fatma Salama">
+                <span class="error-message" id="textError">not correct</span>
+            </div>
+
+            <div class="info-row" id="rowEmail">
+                <label class="info-label" for="email">Email</label>
+                <input type="email" id="email" name="email" class="info-input" value="fatma@email.com">
+                <span class="error-message" id="emailError">not correct</span>
+            </div>
+
+            <div class="info-row" id="rowPhone">
+                <label class="info-label" for="phone">Phone Number</label>
+                <input type="text" id="phone" name="phone_number" class="info-input" value="01012345678">
+                <span class="error-message" id="phoneError">not correct</span>
+            </div>
+
+
+            <div class="actions" style="padding: 0 20px 20px 20px;">
+                <button type="submit" class="btn btn-primary" id="saveProfileBtn">Save Changes</button>
+            </div>
+        </form>
+
+        <div class="actions" style="padding: 0 20px 20px 20px;">
+            <button type="button" class="btn btn-logout" id="logoutBtn">Logout</button>
         </div>
     </div>
-
+    <br>
+    <br>
+    <br>
+    <br>
+    <!-- <div class="footer-bottom">
+        <p>Made with care to bring lost things back home. © 2026 Refind</p>
+    </div> -->
     <script>
-        // Fetch user profile data from the back-end API dynamically
-        async function loadUserProfile() {
-            try {
-                // Mock data for demonstration purposes:
-                const userData = {
-                    name: "Fatma Salama",
-                    email: "fatma@email.com",
-                    phone: "01012345678",
-                    avatarUrl: ""
-                };
+        function showError(elementId, msg) {
+            const errorElement = document.getElementById(elementId);
+            errorElement.textContent = msg;
+            errorElement.parentElement.classList.add('error');
+        }
 
-                // Update DOM elements with received data
-                document.getElementById('headerName').textContent = userData.name;
-                document.getElementById('headerEmail').textContent = userData.email;
-                document.getElementById('fullNameValue').textContent = userData.name;
-                document.getElementById('emailValue').textContent = userData.email;
-                document.getElementById('phoneValue').textContent = userData.phone;
+        function clearError(elementId) {
+            const errorElement = document.getElementById(elementId);
+            errorElement.parentElement.classList.remove('error');
+        }
 
-                if (userData.avatarUrl) {
-                    const avatarWrapper = document.querySelector('.avatar-wrapper');
-                    avatarWrapper.innerHTML = `<img src="${userData.avatarUrl}" class="avatar" alt="Profile Picture">`;
-                }
 
-            } catch (error) {
-                console.error("Failed to load user profile data:", error);
+        const cotext = /^[a-zA-Z]{3,15}$/;
+
+        function ftext() {
+            if (cotext.test(text.value.trim())) {
+                text.classList.add('valid');
+                text.classList.remove('invalid');
+                clearError("textError");
+                return true;
+            } else {
+                text.classList.add('invalid');
+                text.classList.remove('valid');
+                showError("textError", "not correct");
+                return false;
             }
         }
 
-        // Event listener for edit profile button
-        document.getElementById('editProfileBtn').addEventListener('click', () => {
-            alert("Redirecting to the edit profile page...");
-        });
+        text.addEventListener('input', ftext);
 
-        // Event listener for logout button
-        document.getElementById('logoutBtn').addEventListener('click', async () => {
-            try {
-                alert("Logged out successfully");
-                window.location.href = '/login';
-            } catch (error) {
-                console.error("An error occurred during logout:", error);
+
+
+        const cophone = /^(010|011|012|015)[0-9]{8}$/;
+
+        function fphone() {
+            if (cophone.test(phone.value.trim())) {
+                phone.classList.add('valid');
+                phone.classList.remove('invalid');
+                clearError("phoneError");
+                return true;
+            } else {
+                phone.classList.add('invalid');
+                phone.classList.remove('valid');
+                showError("phoneError", "not correct");
+                return false;
+            }
+        }
+
+        phone.addEventListener('input', fphone);
+
+
+
+        const coemail = /^[a-zA-Z0-9]+@[a-zA-Z]+\.[a-zA-Z]+$/;
+        function femail() {
+            if (coemail.test(email.value.trim())) {
+                email.classList.add('valid');
+                email.classList.remove('invalid');
+                clearError("emailError");
+                return true;
+            } else {
+                email.classList.add('invalid');
+                email.classList.remove('valid');
+                showError("emailError", "not correct");
+                return false;
+            }
+        }
+
+        email.addEventListener('input', femail);
+
+
+
+        document.getElementById('profileForm').addEventListener('submit', (e) => {
+            const isTextValid = ftext();
+            const isPhoneValid = fphone();
+            const isEmailValid = femail();
+
+
+            if (!isTextValid || !isPhoneValid || !isEmailValid) {
+                e.preventDefault();
+                alert("Please fix the errors in the form before saving.");
+            } else {
+
             }
         });
 
-        // Load profile data when the DOM is fully loaded
-        window.addEventListener('DOMContentLoaded', loadUserProfile);
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            alert("Logged out successfully");
+            window.location.href = '/login';
+        });
     </script>
 </body>
 
