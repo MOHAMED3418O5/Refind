@@ -3,7 +3,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Segoe UI Arabic", Tahoma, Roboto, Helvetica, Arial, sans-serif;
 }
 
 body {
@@ -120,7 +120,7 @@ body {
 }
 
 .hero-content {
-    text-align: left;
+    text-align: right;
 }
 
 .badge {
@@ -205,20 +205,16 @@ body {
 }
 
 .stat-item p {
-    .hero-image-container {
-        /* background: linear-gradient(135deg, #0f766e 0%, #115e59 100%);
-    border-radius: 20px;
-    padding: 15px;
-    box-shadow: 0 12px 30px -10px rgba(15, 118, 110, 0.3); */
-        overflow: hidden;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
     font-size: 12px;
     color: #6b7280;
     margin-top: 2px;
+}
+
+.hero-image-container {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 
@@ -236,7 +232,7 @@ body {
 }
 
 .section-header {
-    text-align: left;
+    text-align: right;
     margin-bottom: 30px;
 }
 
@@ -414,7 +410,7 @@ body {
 /*  How It Works */
 
 .page-header {
-    text-align: left;
+    text-align: right;
     margin-bottom: 45px;
 }
 
@@ -697,7 +693,7 @@ body {
 
 .tips-card ul {
     list-style-type: disc;
-    padding-left: 18px;
+    padding-right: 18px;
 }
 
 .tips-card li {
@@ -1018,7 +1014,7 @@ main {
 
 /* Hero Section Aligned to the Left */
 .hero {
-    text-align: left;
+    text-align: right;
     margin-bottom: 2.5rem;
     display: flex;
     flex-direction: column;
@@ -1503,4 +1499,344 @@ input[type="submit"]:active,
 input[type="button"]:active,
 .btn:active {
     transform: scale(0.98);
+}
+
+/* ============================================================
+   RTL fixes — اتجاه النص العربي
+   ============================================================ */
+[dir="rtl"] .auth-card input {
+    text-align: right;
+}
+
+[dir="rtl"] .form-group input,
+[dir="rtl"] .form-group select,
+[dir="rtl"] .form-group textarea {
+    text-align: right;
+}
+
+[dir="rtl"] .input-wrapper i {
+    left: auto;
+    right: 15px;
+}
+
+[dir="rtl"] .input-wrapper input {
+    padding: 13px 45px 13px 15px;
+}
+
+/* ============================================================
+   إحصائيات البحث (Browse Items)
+   ============================================================ */
+.search-stats {
+    display: none;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 10px;
+    padding: 12px 18px;
+    margin-bottom: 24px;
+    font-size: 13.5px;
+    color: #166534;
+    font-weight: 500;
+    line-height: 1.7;
+}
+
+.search-stats i {
+    margin-left: 8px;
+}
+
+/* ============================================================
+   صفحة الخوارزميات — Algorithms
+   ============================================================ */
+.algo-section {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 26px;
+    margin-bottom: 28px;
+    box-shadow: 0 4px 12px -2px rgba(16, 185, 129, 0.06);
+}
+
+.algo-section h2 {
+    font-size: 20px;
+    font-weight: 800;
+    color: #111827;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.algo-section .algo-sub {
+    color: #4b5563;
+    font-size: 14px;
+    margin-bottom: 18px;
+}
+
+.algo-complexity {
+    display: inline-block;
+    background: #e0f2fe;
+    color: #0369a1;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+}
+
+.algo-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.algo-controls input[type="number"] {
+    width: 110px;
+    padding: 10px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+}
+
+.algo-controls input[type="number"]:focus {
+    border-color: #0f766e;
+    box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.1);
+}
+
+.algo-run-btn {
+    background-color: #0f766e;
+    color: white;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.algo-run-btn:hover {
+    background-color: #115e59;
+}
+
+.algo-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 14px;
+    min-height: 60px;
+}
+
+.algo-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 8px 10px;
+    min-width: 92px;
+    transition: all 0.25s ease;
+}
+
+.algo-item-id {
+    font-size: 11px;
+    font-weight: 700;
+    color: #94a3b8;
+}
+
+.algo-item-icon {
+    font-size: 22px;
+}
+
+.algo-item-name {
+    font-size: 10.5px;
+    color: #334155;
+    text-align: center;
+    line-height: 1.3;
+}
+
+.algo-item.visited {
+    background: #fef9c3;
+    border-color: #facc15;
+}
+
+.algo-item.active {
+    background: #dcfce7;
+    border-color: #16a34a;
+    transform: scale(1.06);
+    box-shadow: 0 4px 12px rgba(22, 163, 74, 0.2);
+}
+
+.algo-item.notfound {
+    background: #fee2e2;
+    border-color: #ef4444;
+}
+
+.algo-result {
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-top: 8px;
+}
+
+.algo-result.success {
+    background: #dcfce7;
+    color: #166534;
+    border: 1px solid #bbf7d0;
+}
+
+.algo-result.error {
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+}
+
+.cmp-chip {
+    display: inline-block;
+    background: #f1f5f9;
+    color: #334155;
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 12.5px;
+    font-weight: 700;
+    margin-left: 8px;
+}
+
+.cmp-red {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.cmp-green {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.bench-note {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 13.5px;
+    color: #166534;
+    margin-bottom: 14px;
+    line-height: 1.7;
+}
+
+/* Hash Table */
+.hash-table {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 14px;
+}
+
+.hash-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 13px;
+}
+
+.hash-key {
+    background: #0f766e;
+    color: white;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 11.5px;
+}
+
+.hash-val {
+    color: #334155;
+}
+
+/* Bubble sort result */
+.sort-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.sort-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 13px;
+}
+
+.sort-pos {
+    width: 26px;
+    height: 26px;
+    min-width: 26px;
+    border-radius: 50%;
+    background: #0f766e;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.sort-moved {
+    margin-right: auto;
+    font-size: 11px;
+    color: #94a3b8;
+    white-space: nowrap;
+}
+
+/* Benchmark table */
+.bench-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.bench-table th,
+.bench-table td {
+    padding: 12px 14px;
+    border: 1px solid #e5e7eb;
+    text-align: center;
+    font-size: 14px;
+}
+
+.bench-table th {
+    background: #f0fdf4;
+    color: #0f766e;
+    font-weight: 700;
+}
+
+.bench-table td {
+    color: #334155;
+}
+
+.bench-table .best {
+    background: #dcfce7;
+    font-weight: 700;
+    color: #166534;
+}
+
+.algo-note {
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 13px;
+    color: #92400e;
+    margin-top: 14px;
+    line-height: 1.7;
 }

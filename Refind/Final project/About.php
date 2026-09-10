@@ -7,13 +7,12 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Refind — إعادة الأشياء المفقودة لأصحابها</title>
+    <title>من نحن — Refind</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="assets/css/main.css">
 </head>
 
 <body>
-
     <header class="navbar">
         <div class="nav-container">
             <div class="logo-area">
@@ -21,13 +20,14 @@ session_start();
                 <span class="logo-text">Refind</span>
             </div>
             <nav class="nav-links">
-                <a href="Home.php" class="active">الرئيسية</a>
+                <a href="Home.php">الرئيسية</a>
                 <a href="Browseitems.php">تصفح العناصر</a>
                 <a href="my Report.php">بلاغاتي</a>
                 <a href="Report a find.php">أبلغ عن شيء موجود</a>
                 <a href="Messages.php">الرسائل</a>
                 <a href="How it works.php">كيف يعمل الموقع</a>
-                <a href="About.php">من نحن</a>
+                <a href="Algorithms.php">الخوارزميات</a>
+                <a href="About.php" class="active">من نحن</a>
             </nav>
             <div class="auth-buttons">
                 <?php if (empty($_SESSION['user_id'])): ?>
@@ -41,64 +41,31 @@ session_start();
         </div>
     </header>
 
-    <main class="main-container">
+    <main class="page">
+        <section class="content-card">
+            <div class="badge" style="background-color: #e0f2fe; color: #0369a1;">من نحن</div>
+            <h1>نساعد الناس في العثور على ما فقدوه.</h1>
+            <p>Refind هو مشروع موقع للأشياء المفقودة والموجودة. يمكن للمستخدمين تصفح الطلبات والبحث عن العناصر
+                المفقودة باستخدام أوصاف مفيدة مثل اللون والمادة والمكان وغيرها من الخصائص.</p>
 
-        <section class="hero-section">
-            <div class="hero-content">
-                <div class="badge" style="background-color: #e0f2fe; color: #0369a1;">ملكية موثّقة وبشكل خاص</div>
-                <h1>ضاع منك حاجة؟ يمكن تكون في انتظارك بالفعل.</h1>
-                <p>Refind يربط بين أصحاب الأمانة والمالكين الحقيقيين. كل عملية استرجاع تمر عبر فحص التفاصيل المخفية
-                    قبل فتح محادثة خاصة — فلا يتم تسليم أي شيء لشخص خطأ.</p>
-
-                <div class="hero-buttons">
-                    <a href="Browseitems.php" class="btn-primary">تصفح العناصر الموجودة</a>
-                    <a href="Report a find.php" class="btn-secondary">وجدت شيئاً</a>
+            <div class="features">
+                <div>
+                    <h3>01</h3>
+                    <h2>بحث سهل</h2>
+                    <p>ابحث عن عنصر باستخدام كلمات مفتاحية بسيطة.</p>
                 </div>
-            </div>
-
-            <div class="hero-image-container">
-                <img src="assets/images/99634f65-75c1-497d-916e-0658bff9b46b.png" alt="الشعار الرئيسي">
-            </div>
-        </section>
-
-        <section class="steps-section">
-            <div class="section-header">
-                <h2>طريقة أكثر أماناً لإعادة الأشياء</h2>
-            </div>
-
-            <div class="steps-grid-3">
-                <div class="step-card">
-                    <div class="step-header">
-                        <div class="step-badge-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
-                    </div>
-                    <h3>أبلغ أو ابحث</h3>
-                    <p>من وجد شيئاً ينشره، ومن فقد شيئاً يبحث حسب الفئة والمكان والتاريخ.</p>
+                <div>
+                    <h3>02</h3>
+                    <h2>تفاصيل واضحة</h2>
+                    <p>كل طلب يحتوي على الخصائص المهمة للعنصر.</p>
                 </div>
-                <div class="step-card">
-                    <div class="step-header">
-                        <div class="step-badge-icon"><i class="fa-solid fa-shield-halved"></i></div>
-                    </div>
-                    <h3>تحقق من الملكية</h3>
-                    <p>أجب عن سؤال التفاصيل المخفية الذي لا يعرفه إلا المالك الحقيقي.</p>
-                </div>
-                <div class="step-card">
-                    <div class="step-header">
-                        <div class="step-badge-icon"><i class="fa-solid fa-comments"></i></div>
-                    </div>
-                    <h3>تحدث وسلّم</h3>
-                    <p>تُفتح محادثة خاصة للاتفاق على مكان آمن للقاء والتسليم.</p>
+                <div>
+                    <h3>03</h3>
+                    <h2>تصميم بسيط</h2>
+                    <p>واجهة نظيفة يسهل على الجميع استخدامها.</p>
                 </div>
             </div>
         </section>
-
-        <div class="found-box">
-            <div class="found-box-content">
-                <h3>وجدت شيئاً اليوم؟</h3>
-                <p>يستغرق الإبلاغ حوالي دقيقة واحدة. احتفظ بتفصيل صغير كسرّ وسنستخدمه للتحقق من المالك.</p>
-            </div>
-            <a href="Report a find.php" class="found-btn">أبلغ عن عنصر موجود</a>
-        </div>
-
     </main>
 
     <footer class="footer">

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 09, 2026 at 05:08 PM
+-- Generation Time: Sep 10, 2026 at 03:41 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -63,6 +63,24 @@ CREATE TABLE `claims` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `color`
+--
+
+CREATE TABLE `color` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `color`
+--
+
+INSERT INTO `color` (`id`, `name`) VALUES
+(1, 'red');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `conversations`
 --
 
@@ -82,7 +100,7 @@ CREATE TABLE `conversations` (
 
 CREATE TABLE `locations` (
   `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(150) NOT NULL
+  `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -142,12 +160,34 @@ CREATE TABLE `reports` (
   `location_id` int(10) UNSIGNED NOT NULL,
   `location_details` varchar(255) DEFAULT NULL,
   `title` varchar(150) NOT NULL,
+  `color` varchar(50) DEFAULT NULL,
+  `item_date` date DEFAULT NULL,
   `description` text DEFAULT NULL,
   `report_type` enum('lost','found') NOT NULL,
   `status` enum('active','claimed','closed') DEFAULT 'active',
   `image` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sub_cat`
+--
+
+CREATE TABLE `sub_cat` (
+  `id` int(11) NOT NULL,
+  `cat_id` int(10) UNSIGNED DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `sub_cat`
+--
+
+INSERT INTO `sub_cat` (`id`, `cat_id`, `name`) VALUES
+(1, 3, 'ساعة'),
+(2, 2, 'نضارة');
 
 -- --------------------------------------------------------
 
@@ -163,6 +203,18 @@ CREATE TABLE `users` (
   `phone` varchar(20) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `phone`, `created_at`) VALUES
+(4, 'Mohamed', 'mohamedyasser647my@gmail.com', '$2y$10$vfncvmfuT/FU7hlgxk06tOra.HSn9Mom7MeqKZipiWKea8l2zJWIK', '01146358784', '2026-09-09 19:40:03'),
+(5, 'Mohamed', 'mohamedyasser47my@gmail.com', '$2y$10$TXmXdVhMQOdPYhZ7Y76YveoyHdQVaC194QH5nThvD9tOshJOAWKN6', '01122998995', '2026-09-09 19:48:46'),
+(6, 'Mohamed', 'mohamedyasse99r647my@gmail.com', '$2y$10$aCfeE6NZNqFeCq40sKwlPeqavID5jVH7vFv65gqHQ.kMfZNvRR1fO', '01154362999', '2026-09-09 19:56:18'),
+(7, 'Mohamed', 'mohamedyasi999user647my@gmail.com', '$2y$10$JuhZ74FVhYEPmDmBrJFtY.SQfYSJilrC7f3aHClc7NOziuB2V3VrS', '01146358784', '2026-09-09 19:57:47'),
+(8, 'Mohamed', 'mohame78787dyasser647my@gmail.com', '$2y$10$1uhbRUk.rVA2vhsLPttcsOwVweTYwbYq98zT8we7VfGzaDcu1cj.m', '01152297495', '2026-09-10 05:25:35'),
+(9, 'Mohamed', 'mohamoioioedyasser647my@gmail.com', '$2y$10$5BsnsYFxHwh9QCHf1a2vjOMOHVnh9P/B85rsF/6D6IEu2PSp5uqzu', '01146358784', '2026-09-10 06:27:24');
 
 --
 -- Indexes for dumped tables
@@ -182,6 +234,12 @@ ALTER TABLE `claims`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`),
   ADD KEY `idx_claim_report_status` (`report_id`,`status`);
+
+--
+-- Indexes for table `color`
+--
+ALTER TABLE `color`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `conversations`
@@ -226,7 +284,15 @@ ALTER TABLE `reports`
   ADD KEY `location_id` (`location_id`),
   ADD KEY `idx_report_type` (`report_type`),
   ADD KEY `idx_status` (`status`),
-  ADD KEY `idx_created_at` (`created_at`);
+  ADD KEY `idx_created_at` (`created_at`),
+  ADD KEY `idx_matching` (`report_type`,`category_id`,`location_id`,`color`,`status`);
+
+--
+-- Indexes for table `sub_cat`
+--
+ALTER TABLE `sub_cat`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `cat_id` (`cat_id`);
 
 --
 -- Indexes for table `users`
@@ -250,6 +316,12 @@ ALTER TABLE `categories`
 --
 ALTER TABLE `claims`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `color`
+--
+ALTER TABLE `color`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `conversations`
@@ -282,10 +354,16 @@ ALTER TABLE `reports`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `sub_cat`
+--
+ALTER TABLE `sub_cat`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Constraints for dumped tables
@@ -328,6 +406,12 @@ ALTER TABLE `reports`
   ADD CONSTRAINT `reports_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `reports_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`),
   ADD CONSTRAINT `reports_ibfk_3` FOREIGN KEY (`location_id`) REFERENCES `locations` (`id`);
+
+--
+-- Constraints for table `sub_cat`
+--
+ALTER TABLE `sub_cat`
+  ADD CONSTRAINT `sub_cat_ibfk_1` FOREIGN KEY (`cat_id`) REFERENCES `categories` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -3,24 +3,18 @@ session_start();
 include '../config/auth.php';
 include '../config/db.php';
 
-$sql = "SELECT * from users WHERE id = :id";
-$stmt = $conn->prepare($sql);
-$stmt->execute([':id' => $_SESSION['user_id']]);
-$user = $stmt->fetch(PDO::FETCH_ASSOC);
+requireLogin();
+$user = currentUser($conn);
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Profile - Refind</title>
-
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    <title>الملف الشخصي — Refind</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../assets/css/main.css">
 
     <style>
@@ -205,330 +199,141 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 <body>
 
-    <!-- Navbar -->
     <header class="navbar">
         <div class="nav-container">
-
             <div class="logo-area">
-                <span class="logo-icon">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </span>
-
+                <span class="logo-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
                 <span class="logo-text">Refind</span>
             </div>
-
             <nav class="nav-links">
-                <a href="../Home.php">Home</a>
-                <a href="../Browseitems.php">Browse items</a>
-                <a href="../my Report.php">My Report</a>
-                <a href="../Report a find.php">Report a found</a>
-                <a href="../Messages.php">Messages</a>
-                <a href="../How it works.php">How it works</a>
-                <a href="../About.php">About</a>
-                <a href="Profile.php" class="active">Profile</a>
+                <a href="../Home.php">الرئيسية</a>
+                <a href="../Browseitems.php">تصفح العناصر</a>
+                <a href="../my Report.php">بلاغاتي</a>
+                <a href="../Report a find.php">أبلغ عن شيء موجود</a>
+                <a href="../Messages.php">الرسائل</a>
+                <a href="../How it works.php">كيف يعمل الموقع</a>
+                <a href="../Algorithms.php">الخوارزميات</a>
+                <a href="../About.php">من نحن</a>
             </nav>
-
             <div class="auth-buttons">
-
-                <?php if (empty($_SESSION['user_id'])): ?>
-
-                    <a href="Log-in.php" class="login-btn">
-                        Log in
-                    </a>
-
-                    <a href="sign-up.php" class="signup-btn">
-                        Sign up
-                    </a>
-
-                <?php else: ?>
-
-                    <a href="logout.php" class="logout-btn">
-                        Log out
-                    </a>
-
-                <?php endif; ?>
-
+                <a href="profie.php" class="profile-btn">الملف الشخصي</a>
+                <a href="logout.php" class="logout-btn">تسجيل الخروج</a>
             </div>
-
         </div>
     </header>
 
-
-    <!-- Profile -->
     <main class="profile-page">
 
         <div class="profile-container">
 
-            <!-- Profile Header -->
             <section class="profile-header">
-
                 <div class="profile-avatar">
                     <i class="fa-solid fa-user"></i>
                 </div>
-
                 <div>
-                    <h1>Your Profile</h1>
-
-                    <p>
-                        Manage your Refind account information.
-                    </p>
+                    <h1>ملفك الشخصي</h1>
+                    <p>إدارة معلومات حسابك في Refind.</p>
                 </div>
-
             </section>
 
-
-            <!-- Personal Information -->
             <section class="profile-card">
-
-                <h2>
-                    <i class="fa-solid fa-user"></i>
-                    Personal Information
-                </h2>
+                <h2><i class="fa-solid fa-user"></i> المعلومات الشخصية</h2>
 
                 <div class="profile-info">
-
                     <div class="info-box">
-                        <span class="info-label">Full Name</span>
-
-                        <!-- Add user's name here -->
-                        <span class="info-value">
-                            <?php echo htmlspecialchars($user['name']); ?>
-                        </span>
+                        <span class="info-label">الاسم الكامل</span>
+                        <span class="info-value"><?php echo htmlspecialchars($user['name']); ?></span>
                     </div>
 
-
                     <div class="info-box">
-                        <span class="info-label">Email Address</span>
-
-                        <!-- Add user's email here -->
-                        <span class="info-value">
-                            <?php echo htmlspecialchars($user['email']); ?>
-
-                        </span>
+                        <span class="info-label">البريد الإلكتروني</span>
+                        <span class="info-value"><?php echo htmlspecialchars($user['email']); ?></span>
                     </div>
 
-
                     <div class="info-box">
-                        <span class="info-label">Phone Number</span>
-
-                        <!-- Add user's phone here -->
-                        <span class="info-value">
-                            <?php echo $user['phone']; ?>
-
-                        </span>
+                        <span class="info-label">رقم الهاتف</span>
+                        <span class="info-value"><?php echo htmlspecialchars($user['phone']); ?></span>
                     </div>
 
-
                     <div class="info-box">
-                        <span class="info-label">Account Status</span>
-
-                        <span class="info-value">
-                            Active
-                        </span>
+                        <span class="info-label">حالة الحساب</span>
+                        <span class="info-value">نشط</span>
                     </div>
-
                 </div>
-
 
                 <div class="profile-actions">
-
                     <a href="Edit-profile.php" class="profile-btn edit-btn">
-                        <i class="fa-solid fa-pen"></i>
-                        Edit Profile
+                        <i class="fa-solid fa-pen"></i> تعديل الملف
                     </a>
-
-                    <a href="logout.php"
-                        class="profile-btn logout-btn-profile">
-
-                        <i class="fa-solid fa-right-from-bracket"></i>
-                        Log out
-
+                    <a href="logout.php" class="profile-btn logout-btn-profile">
+                        <i class="fa-solid fa-right-from-bracket"></i> تسجيل الخروج
                     </a>
-
                 </div>
-
             </section>
 
-
-            <!-- Statistics -->
             <section class="profile-card">
-
-                <h2>
-                    <i class="fa-solid fa-chart-simple"></i>
-                    My Activity
-                </h2>
-
+                <h2><i class="fa-solid fa-chart-simple"></i> نشاطي</h2>
                 <div class="profile-stats">
-
                     <div class="stat-box">
-
                         <i class="fa-solid fa-box"></i>
-
-                        <span class="stat-number">
-                            0
-                        </span>
-
-                        <span class="stat-label">
-                            Lost Reports
-                        </span>
-
+                        <span class="stat-number">0</span>
+                        <span class="stat-label">بلاغات عن مفقود</span>
                     </div>
-
-
                     <div class="stat-box">
-
                         <i class="fa-solid fa-magnifying-glass"></i>
-
-                        <span class="stat-number">
-                            0
-                        </span>
-
-                        <span class="stat-label">
-                            Found Reports
-                        </span>
-
+                        <span class="stat-number">0</span>
+                        <span class="stat-label">بلاغات عن عناصر موجودة</span>
                     </div>
-
-
                     <div class="stat-box">
-
                         <i class="fa-solid fa-handshake"></i>
-
-                        <span class="stat-number">
-                            0
-                        </span>
-
-                        <span class="stat-label">
-                            Items Reunited
-                        </span>
-
+                        <span class="stat-number">0</span>
+                        <span class="stat-label">عناصر أُعيدت</span>
                     </div>
-
                 </div>
-
             </section>
 
         </div>
 
     </main>
 
-
-    <!-- Footer -->
     <footer class="footer">
-
         <div class="footer-container">
-
             <div class="footer-col">
-
                 <div class="logo-area">
-
-                    <span class="logo-icon">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </span>
-
-                    <span class="logo-text">
-                        Refind
-                    </span>
-
+                    <span class="logo-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+                    <span class="logo-text">Refind</span>
                 </div>
-
-                <p class="footer-logo-desc">
-                    A calm, safe way to reunite people with the things they lose.
-                </p>
-
+                <p class="footer-logo-desc">طريقة هادئة وآمنة لإعادة الأغراض إلى أصحابها.</p>
             </div>
-
-
             <div class="footer-col">
-
-                <h4>Platform</h4>
-
+                <h4>المنصة</h4>
                 <ul>
-                    <li>
-                        <a href="../Browseitems.php">
-                            Browse found items
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="../Report a find.php">
-                            Report a found item
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="../my Report.php">
-                            My Report
-                        </a>
-                    </li>
+                    <li><a href="../Browseitems.php">تصفح العناصر الموجودة</a></li>
+                    <li><a href="../Report a find.php">أبلغ عن عنصر موجود</a></li>
+                    <li><a href="../my Report.php">بلاغاتي</a></li>
                 </ul>
-
             </div>
-
-
             <div class="footer-col">
-
-                <h4>Learn</h4>
-
+                <h4>تعلّم</h4>
                 <ul>
-                    <li>
-                        <a href="../How it works.php">
-                            How it works
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="../About.php">
-                            About Refind
-                        </a>
-                    </li>
+                    <li><a href="../How it works.php">كيف يعمل الموقع</a></li>
+                    <li><a href="../About.php">عن Refind</a></li>
                 </ul>
-
             </div>
-
-
             <div class="footer-col">
-
-                <h4>Account</h4>
-
+                <h4>الحساب</h4>
                 <ul>
-                    <li>
-                        <a href="Profile.php">
-                            Profile
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="Log-in.php">
-                            Log in
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="sign-up.php">
-                            Create account
-                        </a>
-                    </li>
+                    <li><a href="profie.php">الملف الشخصي</a></li>
+                    <li><a href="Log-in.php">تسجيل الدخول</a></li>
+                    <li><a href="sign-up.php">إنشاء حساب</a></li>
                 </ul>
-
             </div>
-
         </div>
-
         <div class="footer-bottom">
-
-            <p>
-                Made with care to bring lost things back home.
-                © 2026 Refind
-            </p>
-
+            <p>صُنع بعناية ليعود المفقود إلى بيته. © 2026 Refind</p>
         </div>
-
     </footer>
-
-    <script src="../assets/js/index.js"></script>
 
 </body>
 
 </html>
-
