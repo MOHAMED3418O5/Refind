@@ -1,5 +1,12 @@
 <?php
-session_start();
+include 'config/db.php'; 
+include 'config/auth.php';
+$id = $_SESSION['user_id']; 
+$sql = "SELECT * FROM reports WHERE user_id = :user_id ORDER BY created_at DESC";
+$stmt = $conn->prepare($sql);
+$stmt->execute([':user_id' => $id]);
+$reports = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
@@ -63,43 +70,10 @@ session_start();
 
         <div class="reports-list">
 
-            <div class="report-card">
-                <div class="report-info">
-                    <div class="item-icon-box">
-                        <i class="fa-solid fa-backpack"></i>
-                    </div>
-                    <div class="item-details">
-                        <h3>
-                            حقيبة ظهر قماشية سوداء
-                            <span class="status-badge status-unclaimed">لم تتم المطالبة</span>
-                        </h3>
-                        <p>تم البلاغ في 12 أغسطس 2026 · 0 مطالبات</p>
-                    </div>
-                </div>
-                <div class="report-actions">
-                    <a href="#" class="action-btn">عرض الإعلان</a>
-                </div>
-            </div>
+            <?php foreach ($reports as $report): ?>
 
-            <div class="report-card">
-                <div class="report-info">
-                    <div class="item-icon-box">
-                        <i class="fa-solid fa-clock"></i>
-                    </div>
-                    <div class="item-details">
-                        <h3>
-                            ساعة يد فضية
-                            <span class="status-badge status-verification">قيد التحقق</span>
-                        </h3>
-                        <p>تم البلاغ في 9 أغسطس 2026 · تم استلام مطالبتين</p>
-                    </div>
-                </div>
-                <div class="report-actions">
-                    <a href="#" class="action-btn">عرض الإعلان</a>
-                    <a href="#" class="action-btn primary">مراجعة المطالبات</a>
-                </div>
-            </div>
-
+           
+<!-- for each report -->
             <div class="report-card">
                 <div class="report-info">
                     <div class="item-icon-box">
@@ -107,20 +81,22 @@ session_start();
                     </div>
                     <div class="item-details">
                         <h3>
-                            علبة سماعات أذن رمادية لاسلكية
-                            <span class="status-badge status-returned">تمت الإعادة</span>
+<!-- title -->      
+                            <?= htmlspecialchars($report['title']) ?>
+                        <span class="status-badge status-returned">status</span>
                         </h3>
-                        <p>تم البلاغ في 3 أغسطس 2026 · تم استلام مطالبة واحدة</p>
+                        <p><?= $report['item_date'] ?></p>
                     </div>
                 </div>
                 <div class="report-actions">
-                    <a href="#" class="action-btn">عرض الإعلان</a>
-                    <a href="Messages.php" class="action-btn primary">مراجعة المطالبات</a>
+                    <a href="view-report.php?id=<?= $report['id'] ?>" class="action-btn">عرض الإعلان</a>
+
                 </div>
             </div>
 
         </div>
-
+        <?php endforeach; ?>
+<!-- end for each report -->
     </main>
 
     <footer class="footer">
@@ -144,7 +120,6 @@ session_start();
                 <h4>تعلّم</h4>
                 <ul>
                     <li><a href="How it works.php">كيف يعمل الموقع</a></li>
-                    <li><a href="Algorithms.php">الخوارزميات</a></li>
                     <li><a href="About.php">عن Refind</a></li>
                 </ul>
             </div>
@@ -162,5 +137,4 @@ session_start();
         <p>صُنع بعناية ليعود المفقود إلى بيته. © 2026 Refind</p>
     </div>
 </body>
-
 </html>

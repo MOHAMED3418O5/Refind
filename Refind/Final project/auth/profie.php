@@ -1,10 +1,42 @@
 <?php
-session_start();
 include '../config/auth.php';
 include '../config/db.php';
 
-requireLogin();
-$user = currentUser($conn);
+$id = $_SESSION['user_id'] ?? null;
+
+if (!$id) {
+    header("Location: Log-in.php");
+    exit();
+}
+
+try {
+    // 1. جلب بيانات المستخدم
+    $sql = "SELECT * FROM users WHERE id = :id";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute([':id' => $id]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC) ?: [];
+
+    // 2. جلب إحصائيات نشاط المستخدم (عدلي أسماء الجداول والأعمدة حسب قاعدة بياناتك)
+    // عدد بلاغات المفقودات
+    $stmtLost = $conn->prepare("SELECT COUNT(*) FROM reports WHERE user_id = :id AND report_type = 'lost'");
+    $stmtLost->execute([':id' => $id]);
+    $lostCount = $stmtLost->fetchColumn();
+
+    // عدد بلاغات المعثورات
+    $stmtFound = $conn->prepare("SELECT COUNT(*) FROM reports WHERE user_id = :id AND report_type = 'found'");
+    $stmtFound->execute([':id' => $id]);
+    $foundCount = $stmtFound->fetchColumn();
+
+    // عدد العناصر التي أُعيدت (بفرض وجود حالة status = 'returned' أو 'resolved')
+    $stmtReturned = $conn->prepare("SELECT COUNT(*) FROM reports WHERE user_id = :id AND status = 'returned'");
+    $stmtReturned->execute([':id' => $id]);
+    $returnedCount = $stmtReturned->fetchColumn();
+
+} catch (PDOException $e) {
+    // في حالة حدوث خطأ في الاستعلامات
+    $user = $user ?? [];
+    $lostCount = $foundCount = $returnedCount = 0;
+}
 ?>
 
 <!DOCTYPE html>
@@ -177,15 +209,8 @@ $user = currentUser($conn);
                 text-align: center;
             }
 
-            .profile-info {
+            .profile-info, .profile-stats, .profile-actions {
                 grid-template-columns: 1fr;
-            }
-
-            .profile-stats {
-                grid-template-columns: 1fr;
-            }
-
-            .profile-actions {
                 flex-direction: column;
             }
 
@@ -194,7 +219,6 @@ $user = currentUser($conn);
             }
         }
     </style>
-
 </head>
 
 <body>
@@ -216,14 +240,14 @@ $user = currentUser($conn);
                 <a href="../About.php">من نحن</a>
             </nav>
             <div class="auth-buttons">
-                <a href="profie.php" class="profile-btn">الملف الشخصي</a>
+                <!-- تم تعديل profie.php إلى profile.php -->
+                <a href="profile.php" class="profile-btn">الملف الشخصي</a>
                 <a href="logout.php" class="logout-btn">تسجيل الخروج</a>
             </div>
         </div>
     </header>
 
     <main class="profile-page">
-
         <div class="profile-container">
 
             <section class="profile-header">
@@ -242,17 +266,18 @@ $user = currentUser($conn);
                 <div class="profile-info">
                     <div class="info-box">
                         <span class="info-label">الاسم الكامل</span>
-                        <span class="info-value"><?php echo htmlspecialchars($user['name']); ?></span>
+                        <span class="info-value"><?php echo htmlspecialchars($user['name'] ?? 'غير محدد'); ?></span>
                     </div>
 
                     <div class="info-box">
                         <span class="info-label">البريد الإلكتروني</span>
-                        <span class="info-value"><?php echo htmlspecialchars($user['email']); ?></span>
+                        <span class="info-value"><?php echo htmlspecialchars($user['email'] ?? 'غير محدد'); ?></span>
                     </div>
 
                     <div class="info-box">
                         <span class="info-label">رقم الهاتف</span>
-                        <span class="info-value"><?php echo htmlspecialchars($user['phone']); ?></span>
+                        <!-- تم إضافة htmlspecialchars للوقاية الأجدر من XSS -->
+                        <span class="info-value"><?php echo htmlspecialchars($user['phone'] ?? 'غير محدد'); ?></span>
                     </div>
 
                     <div class="info-box">
@@ -276,24 +301,23 @@ $user = currentUser($conn);
                 <div class="profile-stats">
                     <div class="stat-box">
                         <i class="fa-solid fa-box"></i>
-                        <span class="stat-number">0</span>
+                        <span class="stat-number"><?php echo $lostCount; ?></span>
                         <span class="stat-label">بلاغات عن مفقود</span>
                     </div>
                     <div class="stat-box">
                         <i class="fa-solid fa-magnifying-glass"></i>
-                        <span class="stat-number">0</span>
+                        <span class="stat-number"><?php echo $foundCount; ?></span>
                         <span class="stat-label">بلاغات عن عناصر موجودة</span>
                     </div>
                     <div class="stat-box">
                         <i class="fa-solid fa-handshake"></i>
-                        <span class="stat-number">0</span>
+                        <span class="stat-number"><?php echo $returnedCount; ?></span>
                         <span class="stat-label">عناصر أُعيدت</span>
                     </div>
                 </div>
             </section>
 
         </div>
-
     </main>
 
     <footer class="footer">
@@ -323,7 +347,8 @@ $user = currentUser($conn);
             <div class="footer-col">
                 <h4>الحساب</h4>
                 <ul>
-                    <li><a href="profie.php">الملف الشخصي</a></li>
+                    <!-- تم تعديل profie.php إلى profile.php -->
+                    <li><a href="profile.php">الملف الشخصي</a></li>
                     <li><a href="Log-in.php">تسجيل الدخول</a></li>
                     <li><a href="sign-up.php">إنشاء حساب</a></li>
                 </ul>

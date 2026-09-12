@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 include 'config/db.php';
 include 'config/auth.php';
@@ -125,35 +126,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($errors)) {
         try {
-            $stmt = $conn->prepare("INSERT INTO reports ( user_id, item_name, category_id, sub_cat_id, color_id, location_id, date_found, description,report_type,image)VALUES
-                    (
-                    :user_id,
-                    :item_name,
-                    :category_id,
-                    :sub_cat_id,
-                    :color_id,
-                    :location_id,
-                    :date_found,
-                    :description,
-                    :report_type,
-                    :image
-                )
-            ");
-
-            $stmt->execute([
-                ':user_id' => $id,
-                ':item_name' => $itemName,
-                ':category_id' => $category,
-                ':sub_cat_id' => $subCat,
-                ':color_id' => $color,
-                ':location_id' => $location,
-                ':date_found' => $dateFound,
-                ':description' => $description,
-                ':report_type' => 'found',
-                ':image' => $imageName
-            ]);
-
-            header("Location: Report a find.php");
+           $stmt = $conn->prepare("
+    INSERT INTO reports (
+        user_id,
+        title,
+        category_id,
+        location_id,
+        color,
+        item_date,
+        description,
+        report_type,
+        image
+    )
+    VALUES (
+        :user_id,
+        :title,
+        :category_id,
+        :location_id,
+        :color,
+        :item_date,
+        :description,
+        :report_type,
+        :image
+    )
+");
+$stmt->execute([
+    ':user_id' => $id,
+    ':title' => $itemName,
+    ':category_id' => $category,
+    ':location_id' => $location,
+    ':color' => $color,
+    ':item_date' => $dateFound,
+    ':description' => $description,
+    ':report_type' => 'found',
+    ':image' => $imageName
+]);
+            header("Location: Report a find.php?success=1");
             exit();
         } catch (PDOException $e) {
             if ($imageName !== null) {
